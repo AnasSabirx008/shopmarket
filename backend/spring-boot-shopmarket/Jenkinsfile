@@ -1,0 +1,24 @@
+pipeline {
+  agent any
+
+  environment {
+    APP_DIR = 'backend/spring-boot-shopmarket'
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        dir(env.APP_DIR) {
+          sh 'chmod +x mvnw'
+          sh './mvnw -B -DskipTests package'    // -B = batch mode (clean CI logs)
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      archiveArtifacts artifacts: "${env.APP_DIR}/target/*.jar", fingerprint: true
+    }
+  }
+}
