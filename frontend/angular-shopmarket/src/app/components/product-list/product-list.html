@@ -1,0 +1,99 @@
+<section class="catalog" aria-labelledby="catalog-title">
+  <header class="catalog-header">
+    <div>
+      <p class="eyebrow">SHOPMARKET / CATALOG</p>
+      <h1 id="catalog-title">Products</h1>
+      <p class="catalog-description">Browse product details, pricing, and current stock.</p>
+    </div>
+    <div class="catalog-total" aria-label="Total products">
+      <span class="catalog-total__number">{{ products().length }}</span>
+      <span class="catalog-total__label">products</span>
+    </div>
+  </header>
+
+  <div class="catalog-toolbar">
+    <label class="search-control">
+      <svg class="search-control__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10.8" cy="10.8" r="6.8"></circle>
+        <path d="m16 16 4.5 4.5"></path>
+      </svg>
+      <input
+        type="search"
+        aria-label="Search products"
+        placeholder="Search by name, SKU, or description"
+        [value]="searchTerm()"
+        (input)="updateSearch($event)"
+      >
+      <button type="button" class="clear-search" [disabled]="!searchTerm()" (click)="clearSearch()">
+        Clear
+      </button>
+    </label>
+    <p class="result-count" aria-live="polite">
+      <strong>{{ filteredProducts().length }}</strong>
+      <span>of {{ products().length }} products</span>
+    </p>
+  </div>
+
+  <div *ngIf="loading()" class="state-card" aria-live="polite">
+    <span class="loading-indicator" aria-hidden="true"></span>
+    <span>Loading catalog...</span>
+  </div>
+
+  <div *ngIf="loadError() as error" class="state-card state-card--error" role="alert">
+    <span>{{ error }}</span>
+    <button type="button" class="retry-button" (click)="loadProducts()">Try again</button>
+  </div>
+
+  <div *ngIf="!loading() && !loadError()" class="table-card">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">SKU</th>
+          <th scope="col" class="numeric-column">Price</th>
+          <th scope="col" class="numeric-column">Stock</th>
+          <th scope="col">Availability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of filteredProducts()">
+          <td>
+            <div class="product-cell">
+              <div class="product-image">
+                <span class="image-placeholder" aria-hidden="true">{{ getProductInitials(product.name) }}</span>
+                <img
+                  [src]="product.imageUrl"
+                  [alt]="product.name"
+                  loading="lazy"
+                  (error)="onImageError($event)"
+                >
+              </div>
+              <div class="product-copy">
+                <span class="product-name">{{ product.name }}</span>
+                <span class="product-description">{{ product.description }}</span>
+              </div>
+            </div>
+          </td>
+          <td class="sku-cell">{{ product.sku }}</td>
+          <td class="numeric-column price-cell">{{ product.unitPrice | currency:'EUR' }}</td>
+          <td class="numeric-column stock-count">{{ product.unitsInStock }} <span>units</span></td>
+          <td>
+            <span
+              class="availability"
+              [class.availability--inactive]="!product.active"
+              [class.availability--empty]="product.active && product.unitsInStock < 1"
+            >
+              {{ !product.active ? 'Inactive' : product.unitsInStock > 0 ? 'In stock' : 'Out of stock' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="filteredProducts().length === 0">
+          <td colspan="5" class="empty-cell">
+            <strong>{{ searchTerm() ? 'No matching products' : 'No products available' }}</strong>
+            <span *ngIf="searchTerm()">Try another name, SKU, or description.</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

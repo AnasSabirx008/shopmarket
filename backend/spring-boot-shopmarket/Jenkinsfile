@@ -1,0 +1,126 @@
+// CI pipeline - ShopMarket backend (Multibranch Pipeline, Jenkins running in Docker)
+// Script Path: backend/spring-boot-shopmarket/Jenkinsfile
+pipeline {
+  agent any
+
+  options {
+    timestamps()
+    timeout(time: 30, unit: 'MINUTES')
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '20'))
+  }
+
+  environment {
+    APP_DIR           = 'backend/spring-boot-shopmarket'
+    IMAGE             = 'shopmarket-backend'
+    JENKINS_CONTAINER = 'jenkins'          // name of your Jenkins container (docker ps)
+    DOCKER_NET        = 'jenkins'          // Docker network shared by Jenkins, MySQL, SonarQube
+    TRIVY             = 'aquasec/trivy:latest'
+  }
+
+  stages {
+
+    // 1. Compile and package the jar (tests come next)
+    stage('Build') {
+      steps {
+        dir(env.APP_DIR) {
+          sh 'chmod +x mvnw'
+          sh './mvnw -B -DskipTests package'
+        }
+      }
+    }
+
+    // 2. Tests against a throwaway MySQL container
+    stage('Test') {
+      steps {
+        sh '''
+          DB="mysql-ci-$EXECUTOR_NUMBER"
+          docker rm -f "$DB" 2>/dev/null || true
+          docker run -d --name "$DB" --network "$DOCKER_NET" \
+            -e MYSQL_DATABASE=testdb -e MYSQL_USER=test \
+            -e MYSQL_PASSWORD=test -e MYSQL_ROOT_PASSWORD=root \
+            mysql:8.4
+          timeout 120 sh -c "until docker exec $DB mysqladmin ping -h 127.0.0.1 -uroot -proot --silent; do sleep 3; done"
+        '''
+        dir(env.APP_DIR) {
+          sh '''
+            SPRING_DATASOURCE_URL="jdbc:mysql://mysql-ci-$EXECUTOR_NUMBER:3306/testdb" \
+            SPRING_DATASOURCE_USERNAME=test \
+            SPRING_DATASOURCE_PASSWORD=test \
+            ./mvnw -B test
+          '''
+        }
+      }
+      post {
+        always {
+          junit allowEmptyResults: true, testResults: "${env.APP_DIR}/target/surefire-reports/*.xml"
+          sh 'docker rm -f "mysql-ci-$EXECUTOR_NUMBER" || true'
+        }
+      }
+    }
+
+    // 3. Code quality (SAST) and dependency scan, in parallel
+    stage('Quality & Security') {
+      parallel {
+
+        stage('SonarQube') {
+          steps {
+            dir(env.APP_DIR) {
+              withSonarQubeEnv('sonarqube') {
+                sh './mvnw -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=shopmarket-backend -Dsonar.projectName=shopmarket-backend'
+              }
+            }
+          }
+        }
+
+        stage('Trivy - dependencies') {
+          steps {
+            // --volumes-from: the Trivy container sees the Jenkins workspace at the same path
+            sh '''
+              docker run --rm --volumes-from "$JENKINS_CONTAINER" -v trivy-cache:/root/.cache \
+                "$TRIVY" fs --no-progress --exit-code 1 --severity CRITICAL,HIGH --ignore-unfixed \
+                "$WORKSPACE/$APP_DIR"
+            '''
+          }
+        }
+      }
+    }
+
+    // 4. Block the pipeline if SonarQube's Quality Gate fails
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 5, unit: 'MINUTES') {
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
+
+    // 5. Build the Docker image and scan it
+    stage('Docker build') {
+      steps {
+        dir(env.APP_DIR) {
+          sh 'docker build -t "$IMAGE:$GIT_COMMIT" .'
+        }
+      }
+    }
+
+    stage('Trivy - image') {
+      steps {
+        sh '''
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache \
+            "$TRIVY" image --no-progress --exit-code 1 --severity CRITICAL,HIGH --ignore-unfixed \
+            "$IMAGE:$GIT_COMMIT"
+        '''
+      }
+    }
+  }
+
+  post {
+    success {
+      archiveArtifacts artifacts: "${env.APP_DIR}/target/*.jar", fingerprint: true
+    }
+    always {
+      sh 'docker rmi "$IMAGE:$GIT_COMMIT" 2>/dev/null || true'   // free disk space
+    }
+  }
+}
