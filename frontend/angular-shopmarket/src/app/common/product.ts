@@ -1,4 +1,8 @@
 export class Product {
+    id?: number;
+    categoryId?: number;
+    categoryName?: string;
+
     constructor(
         public sku: string,
         public name: string,
@@ -9,6 +13,5 @@ export class Product {
         public unitsInStock: number,
         public dateCreated: Date,
         public lastUpdated: Date
-
     ) {}
 }

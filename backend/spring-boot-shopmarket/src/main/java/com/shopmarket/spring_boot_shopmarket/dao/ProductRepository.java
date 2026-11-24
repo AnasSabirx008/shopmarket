@@ -1,12 +1,11 @@
 package com.shopmarket.spring_boot_shopmarket.dao;
 
 import com.shopmarket.spring_boot_shopmarket.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin("http://localhost:4200")
-@RepositoryRestResource(path = "products")
-public interface ProductRepository extends JpaRepository<Product,Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    Page<Product> findByCategoryId(Long categoryId, Pageable pageable);
 }

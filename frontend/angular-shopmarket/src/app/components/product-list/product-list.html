@@ -28,9 +28,17 @@
         Clear
       </button>
     </label>
+    <select
+      class="category-select"
+      aria-label="Filter products by category"
+      [value]="selectedCategory()"
+      (change)="updateCategory($event)"
+    >
+      <option value="">All categories</option>
+      <option *ngFor="let category of categories()" [value]="category">{{ category }}</option>
+    </select>
     <p class="result-count" aria-live="polite">
-      <strong>{{ filteredProducts().length }}</strong>
-      <span>of {{ products().length }} products</span>
+      <strong>{{ filteredProducts().length }}</strong> of {{ products().length }} products
     </p>
   </div>
 
@@ -49,6 +57,7 @@
       <thead>
         <tr>
           <th scope="col">Product</th>
+          <th scope="col">Category</th>
           <th scope="col">SKU</th>
           <th scope="col" class="numeric-column">Price</th>
           <th scope="col" class="numeric-column">Stock</th>
@@ -74,6 +83,7 @@
               </div>
             </div>
           </td>
+          <td>{{ product.categoryName }}</td>
           <td class="sku-cell">{{ product.sku }}</td>
           <td class="numeric-column price-cell">{{ product.unitPrice | currency:'EUR' }}</td>
           <td class="numeric-column stock-count">{{ product.unitsInStock }} <span>units</span></td>
@@ -88,7 +98,7 @@
           </td>
         </tr>
         <tr *ngIf="filteredProducts().length === 0">
-          <td colspan="5" class="empty-cell">
+          <td colspan="6" class="empty-cell">
             <strong>{{ searchTerm() ? 'No matching products' : 'No products available' }}</strong>
             <span *ngIf="searchTerm()">Try another name, SKU, or description.</span>
           </td>

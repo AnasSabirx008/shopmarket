@@ -1,26 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../common/product';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
+
+export interface ProductCatalog {
+  products: Product[];
+  categories: string[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private baseUrl = 'http://localhost:8080/api/products';
+  private readonly baseUrl = 'http://localhost:8080/api';
 
   constructor(private httpClient: HttpClient) { }
 
-  getProductList(): Observable<Product[]> {
-    return this.httpClient.get<GetResponse>(this.baseUrl).pipe(
-      map(response => response._embedded.products)
+  getProductCatalog(): Observable<ProductCatalog> {
+    return forkJoin({
+      products: this.httpClient.get<PageResponse<Product>>(`${this.baseUrl}/products?size=100`),
+      categories: this.httpClient.get<ProductCategory[]>(`${this.baseUrl}/product-categories`),
+    }).pipe(
+      map(({ products, categories }) => ({
+        products: products.content,
+        categories: categories.map(category => category.categoryName),
+      }))
     );
   }
 }
 
-interface GetResponse {
-  _embedded: {
-    products: Product[];
-  };
+interface PageResponse<T> {
+  content: T[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+}
+
+interface ProductCategory {
+  id: number;
+  categoryName: string;
 }
