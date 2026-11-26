@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.shopmarket.spring_boot_shopmarket.service.ProductServiceTest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.984 s -- in com.shopmarket.spring_boot_shopmarket.service.ProductServiceTest
