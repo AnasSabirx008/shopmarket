@@ -43,7 +43,6 @@ classpath:C:\Users\anass\.m2\repository\tools\jackson\core\jackson-core\3.1.8\ja
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\4.2.0\spring-boot-starter-tomcat-4.2.0.jar	4763:1795110960000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat-runtime\4.2.0\spring-boot-starter-tomcat-runtime-4.2.0.jar	4743:1795110960000
 classpath:C:\Users\anass\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.27\tomcat-embed-core-11.0.27.jar	3656521:1791311712000
-classpath:C:\Users\anass\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\11.0.27\tomcat-embed-el-11.0.27.jar	271410:1791311719000
 classpath:C:\Users\anass\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\11.0.27\tomcat-embed-websocket-11.0.27.jar	291822:1791311722000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-tomcat\4.2.0\spring-boot-tomcat-4.2.0.jar	134445:1795110962000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-http-converter\4.2.0\spring-boot-http-converter-4.2.0.jar	48845:1795110947000
@@ -72,3 +71,10 @@ classpath:C:\Users\anass\.m2\repository\org\springframework\spring-core\7.1.0\sp
 classpath:C:\Users\anass\.m2\repository\commons-logging\commons-logging\1.4.0\commons-logging-1.4.0.jar	75828:1795263372797
 classpath:C:\Users\anass\.m2\repository\org\jspecify\jspecify\1.0.1\jspecify-1.0.1.jar	3064:1795263373031
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-web-server\4.2.0\spring-boot-web-server-4.2.0.jar	185845:1795110962000
+classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter-validation\4.2.0\spring-boot-starter-validation-4.2.0.jar	4765:1795724726363
+classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-validation\4.2.0\spring-boot-validation-4.2.0.jar	15216:1795724726380
+classpath:C:\Users\anass\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\11.0.27\tomcat-embed-el-11.0.27.jar	271410:1791311719000
+classpath:C:\Users\anass\.m2\repository\org\hibernate\validator\hibernate-validator\9.1.6.Final\hibernate-validator-9.1.6.Final.jar	1409428:1795724726697
+classpath:C:\Users\anass\.m2\repository\jakarta\validation\jakarta.validation-api\3.1.1\jakarta.validation-api-3.1.1.jar	106136:1795724726552
+classpath:C:\Users\anass\.m2\repository\org\jboss\logging\jboss-logging\3.6.3.Final\jboss-logging-3.6.3.Final.jar	62672:1783012004922
+classpath:C:\Users\anass\.m2\repository\com\fasterxml\classmate\1.8.0\classmate-1.8.0.jar	77322:1795724726408

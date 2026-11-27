@@ -1,4 +1,4 @@
-classpath:C:\Users\anass\Desktop\spring-tuto\shopmarket-project\backend\spring-boot-shopmarket\target\classes	19:a92e3821d1dd9d1d1129b0e389721b6df0812a076afbb9d3834ba3fb36fb908e
+classpath:C:\Users\anass\Desktop\spring-tuto\shopmarket-project\backend\spring-boot-shopmarket\target\classes	31:1141410395d199d8493ed09560526dedb149193834815df040923f2a0db6a509
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\4.2.0\spring-boot-starter-data-jpa-4.2.0.jar	4760:1795110953000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter\4.2.0\spring-boot-starter-4.2.0.jar	4766:1795263370207
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter-logging\4.2.0\spring-boot-starter-logging-4.2.0.jar	4741:1795263370342
@@ -22,7 +22,6 @@ classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-jpa
 classpath:C:\Users\anass\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar	195939:1782046751621
 classpath:C:\Users\anass\.m2\repository\org\hibernate\orm\hibernate-core\7.4.15.Final\hibernate-core-7.4.15.Final.jar	15354201:1793973927000
 classpath:C:\Users\anass\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar	28607:1782046747399
-classpath:C:\Users\anass\.m2\repository\org\jboss\logging\jboss-logging\3.6.3.Final\jboss-logging-3.6.3.Final.jar	62672:1783012004922
 classpath:C:\Users\anass\.m2\repository\org\hibernate\models\hibernate-models\1.1.2\hibernate-models-1.1.2.jar	218867:1784638803000
 classpath:C:\Users\anass\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.9\jaxb-runtime-4.0.9.jar	922445:1783012005173
 classpath:C:\Users\anass\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.9\jaxb-core-4.0.9.jar	139417:1783012005103
@@ -52,7 +51,6 @@ classpath:C:\Users\anass\.m2\repository\tools\jackson\core\jackson-core\3.1.8\ja
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\4.2.0\spring-boot-starter-tomcat-4.2.0.jar	4763:1795110960000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat-runtime\4.2.0\spring-boot-starter-tomcat-runtime-4.2.0.jar	4743:1795110960000
 classpath:C:\Users\anass\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.27\tomcat-embed-core-11.0.27.jar	3656521:1791311712000
-classpath:C:\Users\anass\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\11.0.27\tomcat-embed-el-11.0.27.jar	271410:1791311719000
 classpath:C:\Users\anass\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\11.0.27\tomcat-embed-websocket-11.0.27.jar	291822:1791311722000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-tomcat\4.2.0\spring-boot-tomcat-4.2.0.jar	134445:1795110962000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-http-converter\4.2.0\spring-boot-http-converter-4.2.0.jar	48845:1795110947000
@@ -120,3 +118,10 @@ classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-sta
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-webmvc-test\4.2.0\spring-boot-webmvc-test-4.2.0.jar	45813:1795110962000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-web-server\4.2.0\spring-boot-web-server-4.2.0.jar	185845:1795110962000
 classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-resttestclient\4.2.0\spring-boot-resttestclient-4.2.0.jar	35773:1795110950000
+classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-starter-validation\4.2.0\spring-boot-starter-validation-4.2.0.jar	4765:1795724726363
+classpath:C:\Users\anass\.m2\repository\org\springframework\boot\spring-boot-validation\4.2.0\spring-boot-validation-4.2.0.jar	15216:1795724726380
+classpath:C:\Users\anass\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\11.0.27\tomcat-embed-el-11.0.27.jar	271410:1791311719000
+classpath:C:\Users\anass\.m2\repository\org\hibernate\validator\hibernate-validator\9.1.6.Final\hibernate-validator-9.1.6.Final.jar	1409428:1795724726697
+classpath:C:\Users\anass\.m2\repository\jakarta\validation\jakarta.validation-api\3.1.1\jakarta.validation-api-3.1.1.jar	106136:1795724726552
+classpath:C:\Users\anass\.m2\repository\org\jboss\logging\jboss-logging\3.6.3.Final\jboss-logging-3.6.3.Final.jar	62672:1783012004922
+classpath:C:\Users\anass\.m2\repository\com\fasterxml\classmate\1.8.0\classmate-1.8.0.jar	77322:1795724726408
